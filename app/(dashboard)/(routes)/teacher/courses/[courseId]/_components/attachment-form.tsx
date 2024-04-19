@@ -2,12 +2,12 @@
 
 import * as z from "zod";
 import axios from "axios";
-import { Pencil, PlusCircle, ImageIcon, File, Loader2, X } from "lucide-react";
+import { PlusCircle, File, Loader2, X } from "lucide-react";
 import { useState } from "react";
 import toast from "react-hot-toast";
 import { useRouter } from "next/navigation";
 import { Attachment, Course } from "@prisma/client";
-import Image from "next/image";
+
 
 import { Button } from "@/components/ui/button";
 import { FileUpload } from "@/components/file-upload";
@@ -61,9 +61,7 @@ export const AttachmentForm = ({
       <div className="font-medium flex items-center justify-between">
         Course attachments
         <Button onClick={toggleEdit} variant="ghost">
-          {isEditing && (
-            <>Cancel</>
-          )}
+          {isEditing &&  <>Cancel</>}
           {!isEditing && (
             <>
               <PlusCircle className="h-4 w-4 mr-2" />
@@ -91,13 +89,15 @@ export const AttachmentForm = ({
                     {attachment.name}
                   </p>
                   {deletingId === attachment.id && (
-                    <div>
+                    <div className="ml-auto">
                       <Loader2 className="h-4 w-4 animate-spin" />
                     </div>
                   )}
                   {deletingId !== attachment.id && (
                     <button
-                      onClick={() => onDelete(attachment.id)}
+                      onClick={() => 
+                        onDelete(attachment.id)
+                      }
                       className="ml-auto hover:opacity-75 transition"
                     >
                       <X className="h-4 w-4" />
@@ -125,5 +125,5 @@ export const AttachmentForm = ({
         </div>
       )}
     </div>
-  )
-}
+  );
+};

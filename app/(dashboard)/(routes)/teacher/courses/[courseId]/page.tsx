@@ -2,7 +2,7 @@ import { IconBadge } from "@/components/ui/icon-badge";
 
 import { db } from "@/lib/db";
 import { auth } from "@clerk/nextjs";
-import { CircleDollarSign,File, LayoutDashboard, ListChecks } from "lucide-react";
+import { CircleDollarSign, File, LayoutDashboard, ListChecks } from "lucide-react";
 import { redirect } from "next/navigation";
 
 import { TitleForm } from "./_components/title-form";
@@ -11,7 +11,7 @@ import { ImageForm } from "./_components/image-form";
 import { CategoryForm } from "./_components/category-form";
 import { PriceForm } from "./_components/price-form";
 import { AttachmentForm } from "./_components/attachment-form";
-
+import { ChaptersForm } from "./_components/chapters-form";
 
 
 const CourseIdPage = async ({
@@ -27,9 +27,15 @@ const CourseIdPage = async ({
 
     const course = await db.course.findUnique({
         where: {
-            id: params.courseId
+            id: params.courseId,
+            userId
         },
         include:{
+            chapters: {
+                orderBy: {
+                    position: "asc",
+                },
+            },
             attachments:
             {
                 orderBy:
@@ -59,7 +65,8 @@ const CourseIdPage = async ({
         course.description,
         course.imageUrl,
         course.price,
-        course.categoryId
+        course.categoryId,
+        course.chapters.some(chapter => chapter.isPublished),
     ];
 
 
@@ -117,18 +124,19 @@ const CourseIdPage = async ({
                 <div className="space-y-6">
                     <div>
                         <div className="flex items-center gap-x-2">
-                            <IconBadge icon={ListChecks} />
+                            <IconBadge size="sm" icon={ListChecks} />
                              <h2 className="text-xl">
                                 Course chapters
                              </h2>
                         </div>
-                        <div>
-                            TODO:Chapters
-                        </div>
+                        <ChaptersForm
+                        initialData={course}
+                        courseId={course.id}
+                    />
 
                     </div>
                     <div className="flex items-center gap-x-2">
-                        <IconBadge icon={CircleDollarSign}/>
+                        <IconBadge size="sm" icon={CircleDollarSign}/>
                         <h2 className="text-xl">
                             Sell your course
                         </h2>
@@ -139,16 +147,16 @@ const CourseIdPage = async ({
                 </div>
             </div>
             <div>
-            <div className="flex items-center gap-x-2">
-                        <IconBadge icon={File}/>
-                        <h2 className="text-xl">
-                            Resources & Attachments
-                        </h2>
-                    </div>
-                    <AttachmentForm
-                        initialData={course}
-                        courseId={course.id}
-                    />
+                <div className="flex items-center gap-x-2">
+                    <IconBadge size="sm"icon={File}/>
+                    <h2 className="text-xl">
+                        Resources & Attachments
+                    </h2>
+                </div>
+                <AttachmentForm
+                    initialData={course}
+                    courseId={course.id}
+                />
             </div>
             
         </div>
