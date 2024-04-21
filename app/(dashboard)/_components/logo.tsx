@@ -7,6 +7,6 @@ export const Logo = () => {
         alt="logo"
         src="/logo.svg"
         />
-     )
-}
+     );
+};
  
