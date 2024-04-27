@@ -7,7 +7,7 @@ import { redirect } from "next/navigation";
 import { ArrowLeft, Eye, LayoutDashboard, Video } from "lucide-react";
 
 
-import { IconBadge } from "@/components/ui/icon-badge";
+import { IconBadge } from "@/components/icon-badge";
 import { Banner } from "@/components/banner";
 
 import { ChapterTitleForm } from "./_components/chapter-title-form";
