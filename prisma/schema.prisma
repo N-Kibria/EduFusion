@@ -1,5 +1,3 @@
-
-
 generator client {
   provider = "prisma-client-js"
   previewFeatures = ["fullTextSearch", "fullTextIndex"]
@@ -26,14 +24,15 @@ model Course {
   attachments Attachment[]
   chapters Chapter[]
   purchases Purchase[]
+  
+  ratings        Int[]     @default([])
+  averageRating Float @default(0.0)
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 
   @@index([categoryId])
   @@fulltext([title])
-
-
 }
 
 
