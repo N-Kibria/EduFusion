@@ -10,6 +10,7 @@ import { Preview } from "@/components/preview";
 import { VideoPlayer } from "./_components/video-player";
 import { CourseEnrollButton } from "./_components/course-enroll-button";
 import { CourseProgressButton } from "./_components/course-progress-button";
+import { RatingComponent } from "./_components/course-rating-button";
 
 
 const ChapterIdPage = async ({
@@ -113,6 +114,13 @@ const ChapterIdPage = async ({
                 ))}
               </div>
             </>
+          )}
+          {userProgress?.isCompleted && (
+            <RatingComponent
+              userId={userId}
+              courseId={params.courseId}
+              isCompleted={userProgress.isCompleted}
+            />
           )}
         </div>
       </div>
