@@ -1,6 +1,6 @@
 import Image from "next/image";
 import Link from "next/link";
-import { BookOpen } from "lucide-react";
+import { BookOpen, Star } from "lucide-react";
 
 import { IconBadge } from "@/components/icon-badge";
 import { formatPrice } from "@/lib/format";
@@ -14,6 +14,8 @@ interface CourseCardProps {
   price: number;
   progress: number | null;
   category: string;
+  averageRating: number;
+  ratingsCount: number;
 };
 
 export const CourseCard = ({
@@ -23,7 +25,9 @@ export const CourseCard = ({
   chaptersLength,
   price,
   progress,
-  category
+  category,
+  averageRating,
+  ratingsCount,
 }: CourseCardProps) => {
   return (
     <Link href={`/courses/${id}`}>
@@ -50,6 +54,12 @@ export const CourseCard = ({
                 {chaptersLength} {chaptersLength === 1 ? "Chapter" : "Chapters"}
               </span>
             </div>
+          </div>
+          <div className="flex items-center gap-x-1 text-sm md:text-xs text-slate-500">
+            <IconBadge size="sm" icon={Star} />
+            <span>
+              {averageRating.toFixed(2)} ({ratingsCount} ratings)
+              </span>
           </div>
           {progress !== null ? (
             <CourseProgress
