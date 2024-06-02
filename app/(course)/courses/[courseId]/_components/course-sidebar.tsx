@@ -22,7 +22,7 @@ export const CourseSidebar = async ({
   progressCount,
 }: CourseSidebarProps) => {
   const { userId } = auth();
-
+        
   if (!userId) {
     return redirect("/");
   }

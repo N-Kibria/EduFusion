@@ -29,7 +29,7 @@ export const VideoPlayer = ({
   completeOnEnd,
   title,
 }: VideoPlayerProps) => {
-  const [isReady, setIsReady] = useState(false);
+  const [isReady, setIsReady] = useState(false); 
   const router = useRouter();
   const confetti = useConfettiStore();
 
